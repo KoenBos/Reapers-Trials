@@ -6,9 +6,13 @@ public class PlayerAttack : MonoBehaviour
 {
     public GameObject AttackCollider;
 
+    private Collider2D attackCollider;
+
     void Start()
     {
         AttackCollider.SetActive(false);
+
+        attackCollider = AttackCollider.GetComponent<Collider2D>();
     }
 
     void Update()
@@ -46,12 +50,15 @@ public class PlayerAttack : MonoBehaviour
         AttackCollider.SetActive(false);
     }
 
-    //when the attack collider collides with an enemy, get the enemys healthmanager script and deal damage to it, so not the collider on the player but the collider on the attack collider
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<HealthManager>().TakeDamage(10);
+            HealthManager enemyHealth = collision.GetComponent<HealthManager>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(10);
+            }
         }
     }
 }
