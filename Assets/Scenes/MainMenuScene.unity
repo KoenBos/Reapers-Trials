@@ -326,6 +326,8 @@ GameObject:
   - component: {fileID: 163825779}
   - component: {fileID: 163825781}
   - component: {fileID: 163825780}
+  - component: {fileID: 163825783}
+  - component: {fileID: 163825782}
   m_Layer: 5
   m_Name: glow
   m_TagString: Untagged
@@ -391,6 +393,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163825778}
   m_CullTransparentMesh: 1
+--- !u!225 &163825782
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163825778}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &163825783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163825778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c122f63be687445bf549153f1fbc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkSpeed: 0.7
+  minimumAlpha: 0.3
 --- !u!1 &184189383
 GameObject:
   m_ObjectHideFlags: 0
