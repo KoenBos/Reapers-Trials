@@ -10,12 +10,13 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public bool isInvincible = false;
     private float invincibilityDuration;
-    //public Animator animator;
+    private Animator animator;
     //private AudioManager audioManager;
 
     private void Start()
     {
         //audioManager = FindObjectOfType<AudioManager>();
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
@@ -29,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
             invincibilityDuration -= Time.deltaTime;
             if (invincibilityDuration <= 0.0f)
             {
-                //animator.SetBool("IsHit", false);
+                animator.SetBool("IsHit", false);
                 isInvincible = false;
             }
         }
@@ -41,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
             //audioManager.PlaySFX("Player_Hit");
             currentHealth -= damage;
             slider.value = currentHealth;
-            //animator.SetBool("IsHit", true);
+            animator.SetBool("IsHit", true);
             
             if (currentHealth <= 0)
             {
@@ -50,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
 
             // Apply invincibility
             isInvincible = true;
-            invincibilityDuration = 0.8f;
+            invincibilityDuration = 5.0f;
         }
     }
 }

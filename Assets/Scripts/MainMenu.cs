@@ -22,28 +22,5 @@ public class MainMenu : MonoBehaviour
     Debug.Log("Quit");
     Application.Quit();
     }
-    public void OpenSettings()
-    {
-        SettingsPanel.SetActive(true);
-    }
-    public void CloseSettings()
-    {
-        SettingsPanel.SetActive(false);
-    }
-    public void OpenCredits()
-    {
-        CreditsPanel.SetActive(true);
-    }
-    public void CloseCredits()
-    {
-        CreditsPanel.SetActive(false);
-    }
-    public void OpenQuit()
-    {
-        QuitPanel.SetActive(true);
-    }
-    public void CloseQuit()
-    {
-        QuitPanel.SetActive(false);
-    }
+
 }
