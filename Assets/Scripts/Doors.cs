@@ -4,35 +4,40 @@ using UnityEngine;
 
 public class Doors : MonoBehaviour
 {
-    [SerializeField] private GameObject Door1;
-    [SerializeField] private GameObject Door2;
-    [SerializeField] private float teleportCooldown = 1f;
-    private bool canTeleport = true;
+    [SerializeField] private GameObject Bindedoor;
+    private bool Oneway = false;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    // Start is called before the first frame update
+    void Start()
     {
-        if (other.CompareTag("Player") && canTeleport)
+
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (Bindedoor != null)
         {
-            if (gameObject == Door1)
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.transform.position = Bindedoor.transform.position;
+            Bindedoor.SetActive(false);
+            if (Oneway)
             {
-                TeleportPlayer(Door2);
+                gameObject.SetActive(false);
             }
-            else if (gameObject == Door2)
+            else
             {
-                TeleportPlayer(Door1);
+                StartCoroutine(DisableDoor());
             }
-            StartCoroutine(TeleportCooldown());
+        }
         }
     }
-    private void TeleportPlayer(GameObject door)
+
+    //disable this door for 3 seconds
+    private IEnumerator DisableDoor()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = door.transform.position;
-    }
-    private IEnumerator TeleportCooldown()
-    {
-        canTeleport = false;
-        yield return new WaitForSeconds(teleportCooldown);
-        canTeleport = true;
+        yield return new WaitForSeconds(3);
+        gameObject.SetActive(true);
     }
 }
