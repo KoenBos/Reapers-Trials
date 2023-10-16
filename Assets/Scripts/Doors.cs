@@ -39,7 +39,6 @@ public class Doors : MonoBehaviour
     {
         Door_Closed.SetActive(false);
         Door_Opened.SetActive(true);
-        //get players first child, which is the sprite and fade it out by setting alpha slowly to 0 with a lerping function
         SpriteRenderer playerSprite = player.transform.GetChild(0).GetComponent<SpriteRenderer>();
         while (playerSprite.color.a > 0)
         {
