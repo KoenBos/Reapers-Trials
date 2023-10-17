@@ -6,6 +6,11 @@ public class PlayerAttack : MonoBehaviour
 {
     public GameObject AttackCollider;
 
+    public int damage = 0;
+    public float attackDelay = 0.0f;
+    private float attackTimer = 0.0f;
+    public float attackRange = 0.0f;
+
     private Collider2D attackCollider;
 
     void Start()
@@ -17,6 +22,10 @@ public class PlayerAttack : MonoBehaviour
 
 void Update()
 {
+    if (Input.GetMouseButtonDown(0))
+    {
+        Attack();
+    }
     // Base on the center of the screen to determine the direction up, down, left and right of the attack based on the mouse position
     Vector3 mousePosition = Input.mousePosition;
     mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -30,13 +39,13 @@ void Update()
         if (diff.x > 0)
         {
             // Attack right
-            AttackCollider.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
+            AttackCollider.transform.position = new Vector3(transform.position.x + 2.0f, transform.position.y, transform.position.z);
             AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             // Attack left
-            AttackCollider.transform.position = new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z);
+            AttackCollider.transform.position = new Vector3(transform.position.x - 2.0f, transform.position.y, transform.position.z);
             AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
     }
@@ -46,16 +55,19 @@ void Update()
         if (diff.y > 0)
         {
             // Attack up
-            AttackCollider.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            AttackCollider.transform.position = new Vector3(transform.position.x, transform.position.y + 2.0f, transform.position.z);
             AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
         else
         {
             // Attack down
-            AttackCollider.transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            AttackCollider.transform.position = new Vector3(transform.position.x, transform.position.y - 2.0f, transform.position.z);
             AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 270);
         }
     }
+
+    // Update the attack timer
+    attackTimer += Time.deltaTime;
 }
 
 
@@ -73,8 +85,21 @@ void Update()
             HealthManager enemyHealth = collision.GetComponent<HealthManager>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(10);
+                enemyHealth.TakeDamage(damage);
             }
+        }
+    }
+
+    public void Attack()
+    {
+        if (attackTimer > attackDelay)
+        {
+            AttackCollider.SetActive(true);
+            StartCoroutine(DisableCollider());
+            attackTimer = 0.0f;
+
+            AttackCollider.transform.localScale = new Vector3(attackRange, attackRange, 1.0f);
+            
         }
     }
 }
