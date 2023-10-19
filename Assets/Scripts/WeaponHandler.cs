@@ -11,6 +11,7 @@ public class Weapon
     public float attackRange;
     public Sprite weaponSprite;
     public string useSound;
+    public float swingAnimationSpeed;
 }
 public class WeaponHandler : MonoBehaviour
 {
@@ -19,16 +20,15 @@ public class WeaponHandler : MonoBehaviour
     public int currentWeapon = 0;
     public GameObject weaponVisual;
 
-    PlayerAttack playerAttack;
-
+    //player attack script
+    private PlayerAttack playerAttack;
     private void Start()
     {
         //audioManager = FindObjectOfType<AudioManager>();
-        PlayerAttack playerAttack = GetComponent<PlayerAttack>();
+        //get player attack script
+        playerAttack = GetComponent<PlayerAttack>();
         UpdateWeapon();
     }
-
-    //Update
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -36,13 +36,14 @@ public class WeaponHandler : MonoBehaviour
             UpdateWeapon();
         }
     }
-
+    
     public void UpdateWeapon()
     {
         weaponVisual.GetComponent<SpriteRenderer>().sprite = weapons[currentWeapon].weaponSprite;
         playerAttack.damage = weapons[currentWeapon].damage;
         playerAttack.attackDelay = weapons[currentWeapon].attackDelay;
         playerAttack.attackRange = weapons[currentWeapon].attackRange;
+        playerAttack.animator.speed = weapons[currentWeapon].swingAnimationSpeed;
     }
 
 }
