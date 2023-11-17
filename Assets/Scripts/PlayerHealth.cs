@@ -54,4 +54,13 @@ public class PlayerHealth : MonoBehaviour
             invincibilityDuration = 5.0f;
         }
     }
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        slider.value = currentHealth;
+    }
 }

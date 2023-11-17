@@ -2,56 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class WeaponPickup : Interactable
 {
     public int weaponID = 0;
-    private bool isPlayerNearby = false;
-    private InfoTextManager infoTextManager;
-    private GameObject player;
     public GameObject weaponDrop;
 
-    private void Start()
+    public override void OnStart()
     {
-    infoTextManager = GameObject.Find("InfoTextManager").GetComponent<InfoTextManager>();
-
-    player = GameObject.Find("Player");
-
-    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-    spriteRenderer.sprite = player.GetComponent<WeaponHandler>().weapons[weaponID].weaponSprite;
+        InfoText =  "Pick up  weapon (E)";
+        GetComponent<SpriteRenderer>().sprite = player.GetComponent<WeaponHandler>().weapons[weaponID].weaponSprite;
     }
-
-    //if player presses e and is nearby the weapon pickup, pick up the weapon
-    void Update()
+    public override void UseItem()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isPlayerNearby)
-        {
-            //initiate weapon drop with the weapon that the player is currently holding
-            GameObject drop = Instantiate(weaponDrop, transform.position, Quaternion.identity);
+            GameObject drop = Instantiate(weaponDrop, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
             drop.GetComponent<WeaponPickup>().weaponID = player.GetComponent<WeaponHandler>().currentWeapon;
-            
+            drop.GetComponent<SpriteRenderer>().sprite = player.GetComponent<WeaponHandler>().weapons[player.GetComponent<WeaponHandler>().currentWeapon].weaponSprite;
+            drop.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
             player.GetComponent<WeaponHandler>().currentWeapon = weaponID;
             player.GetComponent<WeaponHandler>().UpdateWeapon();
             
-
             Destroy(gameObject);
-        }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerNearby = true;
-            infoTextManager.ShowInfo("Pickup Weapon?");
-        }
-    }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerNearby = false;
-            infoTextManager.HideInfo();
-        }
-    }
 }

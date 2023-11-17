@@ -14,6 +14,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetFloat("IdleDirection", 0);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            animator.SetFloat("IdleDirection", 1);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            animator.SetFloat("IdleDirection", 2);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            animator.SetFloat("IdleDirection", 3);
+        }
         Move();
     }
 
@@ -28,5 +44,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Horizontal", moveX);
         animator.SetFloat("Vertical", moveY);
         animator.SetFloat("Speed", moveDirection.sqrMagnitude);
+        
     }
 }

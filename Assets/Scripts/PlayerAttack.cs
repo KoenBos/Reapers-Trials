@@ -66,14 +66,14 @@ void Update()
             if (diff.x > 0)
             {
                 // Attack right
-                AttackCollider.transform.position = new Vector3(transform.position.x + 2.3f, transform.position.y, transform.position.z);
+                AttackCollider.transform.position = new Vector3(transform.position.x + 2.3f, transform.position.y + 2.0f, transform.position.z);
                 AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 0);
                 animator.SetTrigger("AttackRight");
             }
             else
             {
                 // Attack left
-                AttackCollider.transform.position = new Vector3(transform.position.x - 2.3f, transform.position.y, transform.position.z);
+                AttackCollider.transform.position = new Vector3(transform.position.x - 2.3f, transform.position.y + 2.0f, transform.position.z);
                 AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 180);
                 animator.SetTrigger("AttackLeft");
             }
@@ -84,7 +84,7 @@ void Update()
             if (diff.y > 0)
             {
                 // Attack up
-                AttackCollider.transform.position = new Vector3(transform.position.x, transform.position.y + 3.3f, transform.position.z);
+                AttackCollider.transform.position = new Vector3(transform.position.x, transform.position.y + 6.3f, transform.position.z);
                 AttackCollider.transform.rotation = Quaternion.Euler(0, 0, 90);
                 animator.SetTrigger("AttackUp");
             }
@@ -102,5 +102,5 @@ void Update()
 
         AttackCollider.transform.localScale = new Vector3(attackRange, attackRange, 1.0f);
     }
-        }
+    }
 }

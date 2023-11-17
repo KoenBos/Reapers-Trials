@@ -59,6 +59,17 @@ public class EnemyAI : MonoBehaviour
             rb.AddForce(-transform.up * 300f);
         }
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
+            //move a little bit backwards when colliding with player
+            rb.AddForce(-transform.up * -500f);
+        }
+    }
 
     // Update is called once per frame
     void FixedUpdate()
