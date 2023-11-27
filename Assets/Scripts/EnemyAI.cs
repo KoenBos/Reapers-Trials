@@ -12,6 +12,8 @@ public class EnemyAI : MonoBehaviour
 
     public int damage = 30;
 
+
+
     Path path;
     int currentWaypoint = 0;
 

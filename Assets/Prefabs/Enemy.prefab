@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 6934669731549097078}
   - component: {fileID: 6934669731549097080}
   - component: {fileID: 674380018502833218}
+  - component: {fileID: 1491801166}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -477,6 +478,26 @@ MonoBehaviour:
   slider: {fileID: 4843686605120283926}
   maxHealth: 100
   currentHealth: 0
+--- !u!95 &1491801166
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934669731549097072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0b89121c91aea6c4bb9909be784c43b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7121378219612635980
 GameObject:
   m_ObjectHideFlags: 0

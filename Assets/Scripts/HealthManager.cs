@@ -10,10 +10,8 @@ public class HealthManager : MonoBehaviour
     public Slider slider;
     public int maxHealth = 100;
     public int currentHealth;
-    //public Animator alienAnimator;
-
-    //private AudioManager audioManager;
-
+    [SerializeField] private bool DropLoot = false;
+    [SerializeField] private GameObject LootPrefab;
 
 
     
@@ -33,11 +31,27 @@ public class HealthManager : MonoBehaviour
         slider.gameObject.SetActive(true);
         currentHealth -= damage;
         slider.value = currentHealth;
-        //alienAnimator.SetTrigger("hit");
+
+        //tijdelijk
+        Vector3 playerPosition = GameObject.Find("Player").transform.position;
+        Vector3 enemyPosition = transform.position;
+        Vector3 direction = enemyPosition - playerPosition;
+        direction.Normalize();
+        GetComponent<Rigidbody2D>().AddForce(direction * 1000);
+
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("Hit");
+        }
+    
         if (currentHealth <= 0)
         {
-            // Die
-            //audioManager.PlaySFX("Alien_Scream");
+            if (DropLoot)
+            {
+                Instantiate(LootPrefab, transform.position, Quaternion.identity);
+            }
+            //audioManager.PlaySFX("Enemy_Death");
             Destroy(gameObject);
         }
     }
