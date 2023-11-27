@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589679fdf0708ee47bd2371ab09d9443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponID: 0
+  player: {fileID: 0}
+  InfoText: Use (E)
+  weaponID: 2
   weaponDrop: {fileID: 9140999012400686569}
 --- !u!58 &9140999012400686568
 CircleCollider2D:
