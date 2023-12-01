@@ -17,7 +17,6 @@ public class WeaponPickup : Interactable
             GameObject drop = Instantiate(weaponDrop, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
             drop.GetComponent<WeaponPickup>().weaponID = player.GetComponent<WeaponHandler>().currentWeapon;
             drop.GetComponent<SpriteRenderer>().sprite = player.GetComponent<WeaponHandler>().weapons[player.GetComponent<WeaponHandler>().currentWeapon].weaponSprite;
-            drop.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             player.GetComponent<WeaponHandler>().currentWeapon = weaponID;
             player.GetComponent<WeaponHandler>().UpdateWeapon();

@@ -19,6 +19,8 @@ public class WeaponHandler : MonoBehaviour
     public Weapon[] weapons;
     public int currentWeapon = 0;
     public GameObject weaponVisual;
+    public GameObject UIWeaponImage;
+    public TMPro.TextMeshProUGUI weaponName;
 
     //player attack script
     private PlayerAttack playerAttack;
@@ -40,6 +42,11 @@ public class WeaponHandler : MonoBehaviour
     public void UpdateWeapon()
     {
         weaponVisual.GetComponent<SpriteRenderer>().sprite = weapons[currentWeapon].weaponSprite;
+        UIWeaponImage.GetComponent<UnityEngine.UI.Image>().sprite = weapons[currentWeapon].weaponSprite;
+        
+        playerAttack.delaySlider.maxValue = weapons[currentWeapon].attackDelay;
+
+        weaponName.text = weapons[currentWeapon].weaponName;
         playerAttack.damage = weapons[currentWeapon].damage;
         playerAttack.attackDelay = weapons[currentWeapon].attackDelay;
         playerAttack.attackRange = weapons[currentWeapon].attackRange;

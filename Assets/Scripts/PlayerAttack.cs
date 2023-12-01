@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject AttackCollider;
 
     public int damage = 0;
+    public Slider delaySlider;
     public float attackDelay = 0.0f;
     private float attackTimer = 0.0f;
     public float attackRange = 0.0f;
@@ -30,6 +32,14 @@ void Update()
     }
     // Update the attack timer
     attackTimer += Time.deltaTime;
+    if (attackTimer < attackDelay)
+    {
+        delaySlider.value = attackDelay - attackTimer;
+    }
+    else
+    {
+        delaySlider.value = 0.0f;
+    }
 }
 
 

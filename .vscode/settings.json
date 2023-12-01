@@ -52,5 +52,6 @@
         "temp/":true,
         "Temp/":true
     },
-    "dotnet.defaultSolution": "Reapers-Trials.sln"
+    "dotnet.defaultSolution": "Reapers-Trials.sln",
+    "dotnet.preferCSharpExtension": true
 }

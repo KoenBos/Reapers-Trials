@@ -43,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= damage;
             slider.value = currentHealth;
             animator.SetBool("IsHit", true);
+            CinemachineShake.Instance.ShakeCamera(10.0f, 0.2f);
+
             
             if (currentHealth <= 0)
             {
@@ -51,7 +53,7 @@ public class PlayerHealth : MonoBehaviour
 
             // Apply invincibility
             isInvincible = true;
-            invincibilityDuration = 5.0f;
+            invincibilityDuration = 2.0f;
         }
     }
     public void Heal(int amount)
