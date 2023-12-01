@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     public float speed = 400;
     public float nextWaypointDistance = 2f;
 
-    public int damage = 30;
+    private int damage = 35;
 
 
 
