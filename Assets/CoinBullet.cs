@@ -15,15 +15,26 @@ public class CoinBullet : MonoBehaviour
     {
 
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Do nothing if collides with an enemy tagged gameobject
+            return;
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        { 
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(10);
+            playerHealth.TakeDamage(20);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
 }
