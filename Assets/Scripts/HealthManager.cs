@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HealthManager : MonoBehaviour
 {
 
-    public Slider slider;
+    public Slider slider = null;
     public int maxHealth = 100;
     public int currentHealth;
     [SerializeField] private bool DropLoot = false;
@@ -19,8 +19,13 @@ public class HealthManager : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        slider.maxValue = maxHealth;
-        slider.value = maxHealth;
+        
+        if (slider != null)
+        {
+            slider.maxValue = maxHealth;
+            slider.value = maxHealth;
+        }
+
         //audioManager = FindObjectOfType<AudioManager>();
     }
 
@@ -28,9 +33,14 @@ public class HealthManager : MonoBehaviour
     {
        // audioManager.PlaySFX("Enemy_Hit");
         //audioManager.PlaySFX("Enemy_Hit2");
-        slider.gameObject.SetActive(true);
         currentHealth -= damage;
-        slider.value = currentHealth;
+        if (slider != null)
+        {
+            slider.gameObject.SetActive(true);
+            slider.value = currentHealth;
+        }
+        
+        
 
         //tijdelijk
         Vector3 playerPosition = GameObject.Find("Player").transform.position;

@@ -34,7 +34,8 @@ public class WeaponParent : MonoBehaviour
 
     public bool IsAttacking { get; private set; }
 
-    public Transform circleOrigin;
+    public GameObject AttackColliderObject;
+    private CircleCollider2D attackCollider; 
     public float radius;
 
     public void ResetIsAttacking()
@@ -85,6 +86,13 @@ public class WeaponParent : MonoBehaviour
         if (attackBlocked)
             return;
         animator.SetTrigger("Attack");
+        CinemachineShake.Instance.ShakeCamera(5.0f, 0.1f);
+
+        
+        //enable the attack collider
+        AttackColliderObject.SetActive(true);
+        StartCoroutine(DisableCollider());
+
         IsAttacking = true;
         attackBlocked = true;
         StartCoroutine(DelayAttack());
@@ -95,6 +103,11 @@ public class WeaponParent : MonoBehaviour
         yield return new WaitForSeconds(attackDelay);
         attackBlocked = false;
         IsAttacking = false;
+    }
+    IEnumerator DisableCollider()
+    {
+        yield return new WaitForSeconds(0.1f);
+        AttackColliderObject.SetActive(false);
     }
 
     //private AudioManager audioManager;
@@ -107,6 +120,7 @@ public class WeaponParent : MonoBehaviour
     {
         //audioManager = FindObjectOfType<AudioManager>();
         //UpdateWeapon();
+        attackCollider = AttackColliderObject.GetComponent<CircleCollider2D>();
     }
 
     // public void UpdateWeapon()
@@ -121,5 +135,6 @@ public class WeaponParent : MonoBehaviour
     //     attackRange = weapons[currentWeapon].weaponAttackRange;
     //     animator.speed = weapons[currentWeapon].weaponSwingAnimationSpeed;
     // }
+
 
 }
