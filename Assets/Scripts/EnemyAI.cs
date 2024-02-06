@@ -52,7 +52,6 @@ public class EnemyAI : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
@@ -99,15 +98,6 @@ public class EnemyAI : MonoBehaviour
         {
             currentWaypoint++; 
         }
-
-        // Get the current velocity of the enemy
-        //Vector2 currentVelocity = rb.velocity;
-
-        // Calculate the angle between the velocity and the horizontal axis
-       // float angle = Mathf.Atan2(currentVelocity.y, currentVelocity.x) * Mathf.Rad2Deg - 90f;
-
-        // Rotate the enemy towards the calculated angle
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
 }
