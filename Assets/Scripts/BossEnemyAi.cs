@@ -6,6 +6,7 @@ using Pathfinding;
 public class BossEnemyAi : MonoBehaviour
 {
     public Transform target;
+    public float activationDistance = 10f; // Distance at which the boss activates
     public float speed = 200;
     public float nextWaypointDistance = 3f;
     public float jumpAttackCooldown = 5f;
@@ -15,11 +16,13 @@ public class BossEnemyAi : MonoBehaviour
     [SerializeField] private GameObject miniSlimePrefab; // Prefab for the mini slime
     [SerializeField] private bool isBoss = true;
 
-    private int damage = 50;
+    public int damage = 50;
+    private bool isActive = false; // New flag to check if the boss is active
     private bool isJumping = false;
     private float lastJumpTime = 0f;
     private float lastSpawnTime = 0f; // Timer for spawning mini slimes
     private float spawnInterval = 10f; // Interval for spawning mini slimes
+    private bool isSecondStage = false;
 
     Path path;
     int currentWaypoint = 0;
@@ -38,8 +41,62 @@ public class BossEnemyAi : MonoBehaviour
         bossCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
 
+        target = GameObject.FindWithTag("Player").transform;
+    }
+
+    void Update()
+    {
+        if (!isActive && Vector2.Distance(transform.position, target.position) <= activationDistance)
+        {
+            ActivateBoss();
+        }
+
+        if (!isActive)
+        {
+            return;
+        }
+
+        if (Time.time - lastJumpTime > jumpAttackCooldown - 0.3f)
+            animator.SetTrigger("Charging");
+
+        if (Time.time - lastJumpTime > jumpAttackCooldown)
+            StartCoroutine(JumpAttack());
+
+        if (Time.time - lastSpawnTime > spawnInterval)
+        {
+            StartCoroutine(SpawnMiniSlime());
+            lastSpawnTime = Time.time;
+        }
+
+        if (isSecondStage == false && GetComponent<HealthManager>().currentHealth <= GetComponent<HealthManager>().maxHealth / 2)
+        {
+            secondStage();
+            isSecondStage = true;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isActive || path == null || isJumping)
+            return;
+
+        if (currentWaypoint >= path.vectorPath.Count)
+            return;
+
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        Vector2 force = direction * speed * Time.deltaTime;
+        rb.AddForce(force);
+
+        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        if (distance < nextWaypointDistance)
+            currentWaypoint++;
+    }
+
+    void ActivateBoss()
+    {
+        isActive = true;
+        UpdatePath();
         InvokeRepeating("UpdatePath", 0f, 0.5f);
-        target = GameObject.Find("Player").transform;
     }
 
     void UpdatePath()
@@ -69,45 +126,19 @@ public class BossEnemyAi : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void secondStage()
     {
-        if (path == null || isJumping) 
-            return;
-
-        if (currentWaypoint >= path.vectorPath.Count)
-            return;
-
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
-        rb.AddForce(force);
-
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance)
-            currentWaypoint++;
-
-        if (Time.time - lastJumpTime > jumpAttackCooldown - 0.3f)
-            animator.SetTrigger("Charging");
-
-        if (Time.time - lastJumpTime > jumpAttackCooldown)
-            StartCoroutine(JumpAttack());
-
-        // Spawning mini slimes
-        if (Time.time - lastSpawnTime > spawnInterval)
-        {
-            StartCoroutine(SpawnMiniSlime());
-            lastSpawnTime = Time.time;
-        }
+        speed = 20000;
+        jumpAttackCooldown = 2f;
+        jumpSpeed = 1.5f;
     }
 
     IEnumerator JumpAttack()
     {
         lastJumpTime = Time.time;
         isJumping = true;
-        if (isBoss)
-        {
-            spriteRenderer.sortingOrder = 10;
-            bossCollider.enabled = false;
-        }
+        spriteRenderer.sortingOrder = 10;
+        bossCollider.enabled = false;
         animator.SetTrigger("Jump");
 
         Vector3 start = transform.position;
@@ -126,14 +157,13 @@ public class BossEnemyAi : MonoBehaviour
         isJumping = false;
         bossCollider.enabled = true;
         animator.SetTrigger("Land");
+        spriteRenderer.sortingOrder = 0;
+
         if (isBoss)
         {
             // Assuming CinemachineShake.Instance.ShakeCamera exists in your project
-            CinemachineShake.Instance.ShakeCamera(20.0f, 0.3f); 
+            CinemachineShake.Instance.ShakeCamera(20.0f, 0.3f);
         }
-        spriteRenderer.sortingOrder = 0;
-
-        // Add force or effect upon landing if necessary
     }
 
     IEnumerator SpawnMiniSlime()
@@ -146,6 +176,5 @@ public class BossEnemyAi : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             Instantiate(miniSlimePrefab, transform.position, Quaternion.identity);
         }
-        yield return null;
     }
 }
