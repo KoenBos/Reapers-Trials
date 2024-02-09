@@ -81,11 +81,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   activationDistance: 1000
-  speed: 10000
+  speed: 3000
   nextWaypointDistance: 3
-  jumpAttackCooldown: 5
-  jumpHeight: 10
-  jumpSpeed: 0.8
+  jumpAttackCooldown: 1.5
+  jumpHeight: 5
+  jumpSpeed: 1.1
   miniSlimePrefab: {fileID: 0}
   isBoss: 0
   damage: 25

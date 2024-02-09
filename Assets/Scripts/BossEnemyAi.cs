@@ -130,15 +130,18 @@ public class BossEnemyAi : MonoBehaviour
     {
         speed = 20000;
         jumpAttackCooldown = 2f;
-        jumpSpeed = 1.5f;
+        jumpSpeed = 1.1f;
     }
 
     IEnumerator JumpAttack()
     {
         lastJumpTime = Time.time;
         isJumping = true;
-        spriteRenderer.sortingOrder = 10;
+        if (isBoss)
+        {
         bossCollider.enabled = false;
+        spriteRenderer.sortingOrder = 10;
+        }
         animator.SetTrigger("Jump");
 
         Vector3 start = transform.position;

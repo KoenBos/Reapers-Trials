@@ -127,7 +127,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: pig_front_walk_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 97
+        width: 468
+        height: 588
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c425326f56e9a2745bd343e122db3892
+      internalID: -441931982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_front_walk_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 95
+        width: 468
+        height: 595
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8952fa0435126694ba06ae5e6d9af075
+      internalID: -1782093534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_front_walk_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 94
+        width: 469
+        height: 595
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98092fc88d71c3749a9fa9949da4f2d9
+      internalID: -694671431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_front_walk_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 96
+        width: 469
+        height: 588
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c16740404ae385a40bbc23c680925bd1
+      internalID: -201186128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +222,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pig_front_walk_spritesheet_1: -1782093534
+      pig_front_walk_spritesheet_0: -441931982
+      pig_front_walk_spritesheet_2: -694671431
+      pig_front_walk_spritesheet_3: -201186128
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
